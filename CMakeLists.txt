@@ -274,6 +274,16 @@ add_compile_options(-fms-extensions )
 #-fms-extensions         Accept some non-standard constructs supported by the Microsoft compiler
 # The newer version of clang hits this seemly benign error that this disables.
 add_compile_options(-Wno-incompatible-ms-struct)
+
+
+# Ninja makes clang write to a pipe, which disables diagnostic colors unless
+# explicitly requested.  (Ninja strips the ANSI codes itself when not writing
+# to a tty.)
+# XXX this is ignored for a little over half of the files for some reason
+#if (CMAKE_GENERATOR STREQUAL "Ninja")
+#  add_compile_options(-fcolor-diagnostics)
+#endif()
+
 endif(CLR_CMAKE_PLATFORM_UNIX)
 
 # Include directory directives
