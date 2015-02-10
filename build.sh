@@ -73,21 +73,16 @@ build_coreclr()
     
     # Check that the makefiles were created.
     
-    if [ ! -f "$__CMakeSlnDir/Makefile" ]; then
+    if [ ! -f "$__CMakeSlnDir/build.ninja" ]; then
         echo Failed to generate native component build project!
         exit 1
     fi
 
-    # Get the number of processors available to the scheduler
-    # Other techniques such as `nproc` only get the number of
-    # processors available to a single process.
-    NumProc=$(($(getconf _NPROCESSORS_ONLN)+1))
-    
     # Build CoreCLR
     
-    echo Executing make install -j $NumProc $__UnprocessedBuildArgs
+    echo Executing ninja install $__UnprocessedBuildArgs
 
-    make install -j $NumProc $__UnprocessedBuildArgs
+    ninja install $__UnprocessedBuildArgs
     if [ $? != 0 ]; then
         echo Failed to build coreclr components.
         exit 1

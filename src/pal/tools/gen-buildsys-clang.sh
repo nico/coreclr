@@ -72,5 +72,6 @@ cmake -DCMAKE_USER_MAKE_RULES_OVERRIDE=$1/src/pal/tools/clang-compiler-override.
   -DCMAKE_OBJDUMP=$llvm_objdump \
   -DCMAKE_RANLIB=$llvm_ranlib \
   -DCMAKE_BUILD_TYPE=$buildtype \
+  -GNinja \
   $1
 
